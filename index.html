@@ -129,21 +129,36 @@
   .rodape{padding:20px 0;font-size:13px;color:var(--tinta-fraca);line-height:1.5}
 
   @media (max-width:900px){
-    .sec{padding:36px 0}
-    .hero{grid-template-columns:1fr;gap:20px;padding:28px 0}
+    .sec{padding:36px 0;text-align:center}
+    .h1{font-size:clamp(30px,7vw,40px)}
+    .h2{font-size:clamp(25px,5.4vw,32px)}
+    .h3{font-size:clamp(20px,4.4vw,24px)}
+    .lead{font-size:18px}
+    .paragrafo{font-size:17px}
+    .hero{grid-template-columns:1fr;gap:20px;padding:28px 0;text-align:center}
+    .hero > div:first-child{align-items:center}
     .hero-foto{aspect-ratio:7/6;order:-1}
-    .hero-cta{flex-direction:column;align-items:stretch;text-align:center}
+    .checks{align-items:center}
+    .check{justify-content:center;text-align:left;font-size:17px}
+    .hero-cta{flex-direction:column;align-items:center;text-align:center}
     .lista2,.exemplo,.grid2,.dor-grid{grid-template-columns:1fr}
+    .lista2{justify-items:center}
+    .exemplo{text-align:center}
+    .exemplo > div:last-child{align-items:center}
+    .card{text-align:left}
+    .box{text-align:center}
     .amanda{grid-template-columns:1fr;text-align:center;justify-items:center;gap:20px}
     .amanda img{width:220px;height:220px;border-radius:999px}
+    .amanda .txt{align-items:center}
     .stats{justify-content:center;gap:16px}
+    .frase{text-align:center}
     .oferta-card{padding:24px 20px}
     .garantia{flex-direction:column;text-align:center;gap:12px}
     .selos .wrap{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:center}
-    .fecho{flex-direction:column;align-items:stretch;text-align:center}
+    .fecho{flex-direction:column;align-items:center;text-align:center}
     /* carrossel dos depoimentos */
     .depos{display:flex;grid-template-columns:none;overflow-x:auto;scroll-snap-type:x mandatory;
-      gap:14px;padding-bottom:10px;-webkit-overflow-scrolling:touch}
+      gap:14px;padding-bottom:10px;-webkit-overflow-scrolling:touch;text-align:left}
     .depo{flex:0 0 86%;scroll-snap-align:center}
     .depos::-webkit-scrollbar{height:6px}
     .depos::-webkit-scrollbar-thumb{background:#D5CCC2;border-radius:999px}
