@@ -12,7 +12,7 @@
   :root{
     --creme:#FBF6F0; --areia:#F3E9E0; --rosa-claro:#F7DDE2; --rosa-suave:#F6E4E5;
     --rosa:#B0304C; --rosa-escuro:#8A2038; --tinta:#241713; --tinta-media:#55403A;
-    --tinta-fraca:#6B534B; --borda:#EADCD0; --verde:#17704C; --vermelho:#C81622;
+    --tinta-fraca:#6B534B; --borda:#EADCD0; --verde:#2ECC71; --vermelho:#C81622;
     --serif:'Instrument Serif', Georgia, serif;
     --sans:Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
@@ -23,18 +23,18 @@
   p{margin:0}
   .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
   .sec{padding:64px 0}
-  .serif{font-family:var(--serif);font-weight:400;letter-spacing:-0.3px;line-height:1.1}
+  .serif{font-family:var(--serif);font-weight:600;letter-spacing:-0.3px;line-height:1.1}
   .h1{font-size:clamp(34px,5vw,54px);text-wrap:pretty}
   .h2{font-size:clamp(28px,3.6vw,40px);text-wrap:pretty}
   .h3{font-size:clamp(22px,2.6vw,30px)}
 
   /* barra topo */
-  .topbar{background:var(--vermelho);color:#fff;text-align:center;font-size:15px;font-weight:600;padding:12px 16px;line-height:1.35}
+  .topbar{background:var(--vermelho);color:#fff;text-align:center;font-size:18px;font-weight:700;padding:18px 16px;line-height:1.35}
 
   /* botões */
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:58px;padding:0 30px;
     border-radius:8px;background:var(--verde);color:#fff;font-size:18px;font-weight:800;text-decoration:none}
-  .btn:hover{background:#125C3F}
+  .btn:hover{background:#27AE60}
   .btn-full{display:flex;width:100%}
 
   /* hero */
@@ -103,11 +103,11 @@
   .oferta{background:var(--rosa);padding:56px 0}
   .oferta-card{max-width:720px;margin:0 auto;background:#fff;border-radius:18px;padding:36px 44px;
     display:flex;flex-direction:column;gap:18px;align-items:center;text-align:center}
-  .oferta-card .lista{display:flex;flex-direction:column;gap:10px;font-size:17px;text-align:left;width:100%}
+  .oferta-card .lista{display:flex;flex-direction:column;gap:10px;font-size:17px;font-weight:700;text-align:left;width:100%}
   .hr{height:1px;background:var(--borda);width:100%}
   .preco{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;justify-content:center}
-  .preco .big{font-family:var(--serif);font-size:clamp(42px,7vw,56px);line-height:1.1;color:var(--rosa)}
-  .preco .sm{font-size:17px;color:var(--tinta-fraca)}
+  .preco .big{font-family:var(--serif);font-weight:700;font-size:clamp(42px,7vw,56px);line-height:1.1;color:var(--rosa)}
+  .preco .sm{font-size:17px;font-weight:700;color:var(--tinta-fraca)}
   .micro{font-size:15px;color:var(--tinta-fraca);line-height:1.45}
 
   /* garantia */
@@ -123,9 +123,10 @@
   .fecho p{font-size:19px;line-height:1.4}
 
   /* selos + rodapé */
-  .selos{background:var(--tinta);color:var(--creme);padding:22px 0}
+  .selos{background:var(--rosa-claro);color:var(--rosa-escuro);padding:22px 0}
   .selos .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;
     font-size:16px;font-weight:600;flex-wrap:wrap}
+  .selos span{display:flex;align-items:center;gap:8px}
   .rodape{padding:20px 0;font-size:13px;color:var(--tinta-fraca);line-height:1.5}
 
   @media (max-width:900px){
@@ -155,6 +156,7 @@
     .oferta-card{padding:24px 20px}
     .garantia{flex-direction:column;text-align:center;gap:12px}
     .selos .wrap{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:center}
+    .selos span{justify-content:center}
     .fecho{flex-direction:column;align-items:center;text-align:center}
     /* carrossel dos depoimentos */
     .depos{display:flex;grid-template-columns:none;overflow-x:auto;scroll-snap-type:x mandatory;
@@ -227,37 +229,6 @@
   </div>
 </section>
 
-<!-- O QUE RECEBE -->
-<section class="sec recebe">
-  <div class="wrap">
-    <h2 class="serif h2">Veja o que você vai receber</h2>
-    <div class="grid2">
-      <div class="box"><h3>Cadastrar ingredientes</h3><p>Sua lista de itens com peso e preço, salva e pronta pra usar em qualquer receita.</p></div>
-      <div class="box"><h3>Precificar produto</h3><p>Monta a ficha técnica e mostra o preço justo — bolo, doce, salgado ou marmita.</p></div>
-      <div class="box"><h3>Produtos precificados</h3><p>Tudo o que você salvou fica guardado. Pediram orçamento, você responde na hora.</p></div>
-      <div class="box"><h3>Fluxo de caixa</h3><p>Entradas, saídas e saldo do mês, da confeitaria e o seu pessoal.</p></div>
-    </div>
-    <p class="paragrafo">Tudo funciona no celular ou no computador, sem precisar de Excel. E você ainda recebe as aulas completas mostrando como usar cada recurso, passo a passo.</p>
-  </div>
-</section>
-
-<!-- AMANDA -->
-<section class="sec">
-  <div class="wrap amanda">
-    <img src="assets/amanda-bio.jpg" alt="Amanda Simão, especialista em confeitaria">
-    <div class="txt">
-      <h2 class="serif h2" style="color:var(--rosa)">Prazer, Amanda Simão</h2>
-      <p class="paragrafo">Vivo de confeitaria há 9 anos e, nos últimos 5, ensino confeiteiras a transformar a produção em negócio lucrativo. Já produzi mais de 5 mil bolos e formei mais de 20 mil alunas.</p>
-      <p class="paragrafo">Desenvolvi soluções que hoje fazem parte da rotina de milhares de profissionais: o Guindaste para Bolos (patenteado e distribuído pela BlueStar), o LaLu Hub, a Planilha 5.0 e a LaLu Academy.</p>
-      <div class="stats">
-        <div class="stat"><div class="n">9 anos</div><div class="l">vivendo de confeitaria</div></div>
-        <div class="stat"><div class="n">+20 mil</div><div class="l">alunas formadas</div></div>
-        <div class="stat"><div class="n">+5 mil</div><div class="l">bolos produzidos</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- DEPOIMENTOS -->
 <section class="sec depo-sec">
   <div class="wrap">
@@ -290,6 +261,37 @@
       </div>
     </div>
     <p class="nota">Textos de exemplo — substituir pelos depoimentos reais antes de publicar, e apagar esta linha.</p>
+  </div>
+</section>
+
+<!-- O QUE RECEBE -->
+<section class="sec recebe">
+  <div class="wrap">
+    <h2 class="serif h2">Veja o que você vai receber</h2>
+    <div class="grid2">
+      <div class="box"><h3>Cadastrar ingredientes</h3><p>Sua lista de itens com peso e preço, salva e pronta pra usar em qualquer receita.</p></div>
+      <div class="box"><h3>Precificar produto</h3><p>Monta a ficha técnica e mostra o preço justo — bolo, doce, salgado ou marmita.</p></div>
+      <div class="box"><h3>Produtos precificados</h3><p>Tudo o que você salvou fica guardado. Pediram orçamento, você responde na hora.</p></div>
+      <div class="box"><h3>Fluxo de caixa</h3><p>Entradas, saídas e saldo do mês, da confeitaria e o seu pessoal.</p></div>
+    </div>
+    <p class="paragrafo">Tudo funciona no celular ou no computador, sem precisar de Excel. E você ainda recebe as aulas completas mostrando como usar cada recurso, passo a passo.</p>
+  </div>
+</section>
+
+<!-- AMANDA -->
+<section class="sec">
+  <div class="wrap amanda">
+    <img src="assets/amanda-bio.jpg" alt="Amanda Simão, especialista em confeitaria">
+    <div class="txt">
+      <h2 class="serif h2" style="color:var(--rosa)">Prazer, Amanda Simão</h2>
+      <p class="paragrafo">Vivo de confeitaria há 9 anos e, nos últimos 5, ensino confeiteiras a transformar a produção em negócio lucrativo. Já produzi mais de 5 mil bolos e formei mais de 20 mil alunas.</p>
+      <p class="paragrafo">Desenvolvi soluções que hoje fazem parte da rotina de milhares de profissionais: o Guindaste para Bolos (patenteado e distribuído pela BlueStar), o LaLu Hub, a Planilha 5.0 e a LaLu Academy.</p>
+      <div class="stats">
+        <div class="stat"><div class="n">9 anos</div><div class="l">vivendo de confeitaria</div></div>
+        <div class="stat"><div class="n">+20 mil</div><div class="l">alunas formadas</div></div>
+        <div class="stat"><div class="n">+5 mil</div><div class="l">bolos produzidos</div></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -344,7 +346,7 @@
 
 <div class="selos">
   <div class="wrap">
-    <span>Acesso imediato</span><span>Suporte em até 24h</span><span>Compra segura</span><span>Garantia de 7 dias</span>
+    <span>⚡ Acesso imediato</span><span>💬 Suporte em até 24h</span><span>🔒 Compra segura</span><span>✅ Garantia de 7 dias</span>
   </div>
 </div>
 
