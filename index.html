@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aplicativo de precificação para confeiteiras — Amanda Simão</title>
+<meta name="description" content="Aplicativo que calcula o preço certo de cada encomenda em menos de um minuto, direto no celular. Sem Excel.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --creme:#FBF6F0; --areia:#F3E9E0; --rosa-claro:#F7DDE2; --rosa-suave:#F6E4E5;
+    --rosa:#B0304C; --rosa-escuro:#8A2038; --tinta:#241713; --tinta-media:#55403A;
+    --tinta-fraca:#6B534B; --borda:#EADCD0; --verde:#17704C; --vermelho:#C81622;
+    --serif:'Instrument Serif', Georgia, serif;
+    --sans:Figtree, 'Helvetica Neue', Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--creme);color:var(--tinta);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block}
+  h1,h2,h3{margin:0}
+  p{margin:0}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+  .sec{padding:64px 0}
+  .serif{font-family:var(--serif);font-weight:400;letter-spacing:-0.3px;line-height:1.1}
+  .h1{font-size:clamp(34px,5vw,54px);text-wrap:pretty}
+  .h2{font-size:clamp(28px,3.6vw,40px);text-wrap:pretty}
+  .h3{font-size:clamp(22px,2.6vw,30px)}
+
+  /* barra topo */
+  .topbar{background:var(--vermelho);color:#fff;text-align:center;font-size:15px;font-weight:600;padding:12px 16px;line-height:1.35}
+
+  /* botões */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:58px;padding:0 30px;
+    border-radius:8px;background:var(--verde);color:#fff;font-size:18px;font-weight:800;text-decoration:none}
+  .btn:hover{background:#125C3F}
+  .btn-full{display:flex;width:100%}
+
+  /* hero */
+  .hero{display:grid;grid-template-columns:1.5fr 1fr;gap:48px;align-items:center;padding:52px 0}
+  .tag{display:inline-block;padding:7px 14px;border-radius:999px;background:var(--rosa-suave);
+    color:var(--rosa);font-size:13px;font-weight:700;letter-spacing:.6px;text-transform:uppercase}
+  .lead{font-size:19px;line-height:1.5;color:#4A352E}
+  .checks{display:flex;flex-direction:column;gap:10px;font-size:17px;font-weight:500}
+  .check{display:flex;gap:10px;align-items:flex-start;line-height:1.35}
+  .check svg{flex:0 0 auto;margin-top:2px}
+  .hero-cta{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .preco-linha{font-size:15px;line-height:1.4;color:var(--tinta-fraca)}
+  .hero-foto{width:100%;aspect-ratio:10/9.5;object-fit:cover;object-position:center top;border-radius:14px}
+  .hero > div:first-child{display:flex;flex-direction:column;gap:20px}
+
+  /* para quem é */
+  .paraquem{background:var(--rosa-claro)}
+  .lista2{display:grid;grid-template-columns:1fr 1fr;gap:14px 32px;font-size:18px;line-height:1.4;margin-top:24px}
+
+  /* exemplo */
+  .exemplo{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+  .card{background:#fff;border:1px solid var(--borda);border-radius:14px;padding:28px}
+  .rotulo{font-size:13px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--tinta-fraca)}
+  .tabela{border:1px solid var(--borda);border-radius:9px;overflow:hidden;margin-top:14px}
+  .tr{display:grid;grid-template-columns:1.4fr .7fr .9fr;padding:11px 16px;font-size:16px;border-bottom:1px solid #F0E5DA}
+  .tr:last-child{border-bottom:none}
+  .th{background:var(--areia);font-size:12px;font-weight:700;letter-spacing:.5px;color:var(--tinta-media);border-bottom:none}
+  .totais{display:flex;gap:12px;margin-top:14px}
+  .total{flex:1;padding:14px 18px;border-radius:9px;background:var(--areia)}
+  .total.destaque{background:var(--rosa);color:#fff}
+  .total .rot{font-size:13px;font-weight:600}
+  .total .val{font-family:var(--serif);font-size:30px;line-height:1.2}
+
+  /* recebe */
+  .recebe{background:var(--areia)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:26px 0}
+  .box{background:#fff;border-radius:12px;padding:22px 24px}
+  .box h3{font-size:19px;font-weight:700;margin-bottom:6px}
+  .box p{font-size:16px;line-height:1.45;color:var(--tinta-media)}
+  .paragrafo{font-size:18px;line-height:1.55;color:var(--tinta-media)}
+
+  /* amanda */
+  .amanda{display:grid;grid-template-columns:300px 1fr;gap:44px;align-items:center}
+  .amanda img{width:300px;height:300px;object-fit:cover;object-position:center top;border-radius:14px}
+  .amanda .txt{display:flex;flex-direction:column;gap:14px}
+  .stats{display:flex;gap:36px;padding-top:6px;flex-wrap:wrap}
+  .stat .n{font-family:var(--serif);font-size:34px;line-height:1}
+  .stat .l{font-size:14px;color:var(--tinta-fraca);padding-top:3px}
+
+  /* depoimentos */
+  .depo-sec{background:var(--areia)}
+  .depos{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px;align-items:start}
+  .depo-topo{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+  .avatar{width:30px;height:30px;border-radius:999px;background:#E8D2D6;color:var(--rosa-escuro);
+    display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+  .nome{font-size:15px;font-weight:700}
+  .chat{border:1px solid #D5CCC2;background:#E5DDD5;border-radius:12px;padding:14px 12px;display:flex;flex-direction:column;gap:8px}
+  .data{align-self:center;padding:4px 12px;border-radius:7px;background:#D9E7EF;color:#3F5560;font-size:12px;font-weight:600}
+  .balao{align-self:flex-start;max-width:94%;background:#fff;border-radius:9px 9px 9px 2px;
+    padding:9px 12px 6px;box-shadow:0 1px 1px rgba(0,0,0,.12)}
+  .balao p{font-size:15px;line-height:1.45;color:#111B21}
+  .hora{text-align:right;font-size:11px;color:#6E7479;padding-top:3px}
+  .nota{font-size:14px;color:var(--tinta-fraca);margin-top:18px}
+
+  /* oferta */
+  .oferta{background:var(--rosa);padding:56px 0}
+  .oferta-card{max-width:720px;margin:0 auto;background:#fff;border-radius:18px;padding:36px 44px;
+    display:flex;flex-direction:column;gap:18px;align-items:center;text-align:center}
+  .oferta-card .lista{display:flex;flex-direction:column;gap:10px;font-size:17px;text-align:left;width:100%}
+  .hr{height:1px;background:var(--borda);width:100%}
+  .preco{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;justify-content:center}
+  .preco .big{font-family:var(--serif);font-size:clamp(42px,7vw,56px);line-height:1.1;color:var(--rosa)}
+  .preco .sm{font-size:17px;color:var(--tinta-fraca)}
+  .micro{font-size:15px;color:var(--tinta-fraca);line-height:1.45}
+
+  /* garantia */
+  .garantia{display:flex;gap:24px;align-items:center;padding:40px 0}
+  .selo{width:76px;height:76px;flex:0 0 auto;border-radius:999px;background:var(--rosa-suave);
+    display:flex;align-items:center;justify-content:center}
+
+  /* dor */
+  .dor{background:var(--areia)}
+  .dor-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0}
+  .frase{background:#fff;border-radius:12px;padding:18px 20px;font-size:17px;line-height:1.4}
+  .fecho{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap}
+  .fecho p{font-size:19px;line-height:1.4}
+
+  /* selos + rodapé */
+  .selos{background:var(--tinta);color:var(--creme);padding:22px 0}
+  .selos .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;
+    font-size:16px;font-weight:600;flex-wrap:wrap}
+  .rodape{padding:20px 0;font-size:13px;color:var(--tinta-fraca);line-height:1.5}
+
+  @media (max-width:900px){
+    .sec{padding:36px 0}
+    .hero{grid-template-columns:1fr;gap:20px;padding:28px 0}
+    .hero-foto{aspect-ratio:7/6;order:-1}
+    .hero-cta{flex-direction:column;align-items:stretch;text-align:center}
+    .lista2,.exemplo,.grid2,.dor-grid{grid-template-columns:1fr}
+    .amanda{grid-template-columns:1fr;text-align:center;justify-items:center;gap:20px}
+    .amanda img{width:220px;height:220px;border-radius:999px}
+    .stats{justify-content:center;gap:16px}
+    .oferta-card{padding:24px 20px}
+    .garantia{flex-direction:column;text-align:center;gap:12px}
+    .selos .wrap{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:center}
+    .fecho{flex-direction:column;align-items:stretch;text-align:center}
+    /* carrossel dos depoimentos */
+    .depos{display:flex;grid-template-columns:none;overflow-x:auto;scroll-snap-type:x mandatory;
+      gap:14px;padding-bottom:10px;-webkit-overflow-scrolling:touch}
+    .depo{flex:0 0 86%;scroll-snap-align:center}
+    .depos::-webkit-scrollbar{height:6px}
+    .depos::-webkit-scrollbar-thumb{background:#D5CCC2;border-radius:999px}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">Aplicativo de precificação e finanças que não precisa de Excel</div>
+
+<!-- HERO -->
+<header class="wrap hero">
+  <div>
+    <span class="tag">Confeiteira</span>
+    <h1 class="serif h1">Você vende o mês inteiro e no fim não sobra dinheiro. O problema é o preço.</h1>
+    <p class="lead">O aplicativo que calcula o preço certo de cada encomenda em menos de um minuto, direto no celular.</p>
+    <div class="checks">
+      <span class="check"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#17704C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Precifica qualquer produto alimentício</span>
+      <span class="check"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#17704C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Fluxo de caixa da confeitaria e o seu</span>
+      <span class="check"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#17704C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Vídeo aulas de como usar</span>
+    </div>
+    <div class="hero-cta">
+      <a class="btn" href="#oferta">EU QUERO APRENDER</a>
+      <span class="preco-linha">R$ 37,00 à vista<br>ou 8x de R$ 5,47</span>
+    </div>
+  </div>
+  <img class="hero-foto" src="assets/amanda-hero.jpg" alt="Amanda Simão segurando um fouet">
+</header>
+
+<!-- PARA QUEM É -->
+<section class="sec paraquem">
+  <div class="wrap">
+    <h2 class="serif h2">Esse aplicativo é pra você se…</h2>
+    <div class="lista2">
+      <span class="check"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#17704C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Você trabalha bastante e o dinheiro não rende</span>
+      <span class="check"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#17704C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Cobra o mesmo que a concorrente e torce pra dar certo</span>
+      <span class="check"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#17704C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Não tem tempo de fazer cálculo na ponta do lápis</span>
+      <span class="check"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#17704C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Não entende de porcentagem e nem quer entender</span>
+      <span class="check"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#17704C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Quer saber quanto do preço é o seu salário</span>
+      <span class="check"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#17704C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Já baixou planilha de Excel e nunca conseguiu usar</span>
+    </div>
+  </div>
+</section>
+
+<!-- EXEMPLO -->
+<section class="sec">
+  <div class="wrap exemplo">
+    <div class="card">
+      <span class="rotulo">Exemplo dentro do app</span>
+      <div class="tabela">
+        <div class="tr th"><span>INGREDIENTE</span><span>QTD</span><span>CUSTO</span></div>
+        <div class="tr"><span>Leite condensado</span><span>1 un</span><span>R$ 6,50</span></div>
+        <div class="tr"><span>Chocolate em pó</span><span>200 g</span><span>R$ 4,20</span></div>
+        <div class="tr"><span>Manteiga</span><span>20 g</span><span>R$ 1,80</span></div>
+      </div>
+      <div class="totais">
+        <div class="total"><div class="rot">Custo total</div><div class="val">R$ 12,50</div></div>
+        <div class="total destaque"><div class="rot">Venda sugerida</div><div class="val">R$ 42,00</div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <h2 class="serif h2">Quem chuta esse produto cobra R$ 25 e acha que está lucrando</h2>
+      <p class="paragrafo">Você cadastra seus ingredientes uma vez, monta a ficha técnica do produto e o app mostra o custo real e o preço com o seu lucro dentro.</p>
+      <p class="paragrafo">Subiu o preço do ingrediente? Você atualiza em um lugar só e todos os produtos se ajustam.</p>
+    </div>
+  </div>
+</section>
+
+<!-- O QUE RECEBE -->
+<section class="sec recebe">
+  <div class="wrap">
+    <h2 class="serif h2">Veja o que você vai receber</h2>
+    <div class="grid2">
+      <div class="box"><h3>Cadastrar ingredientes</h3><p>Sua lista de itens com peso e preço, salva e pronta pra usar em qualquer receita.</p></div>
+      <div class="box"><h3>Precificar produto</h3><p>Monta a ficha técnica e mostra o preço justo — bolo, doce, salgado ou marmita.</p></div>
+      <div class="box"><h3>Produtos precificados</h3><p>Tudo o que você salvou fica guardado. Pediram orçamento, você responde na hora.</p></div>
+      <div class="box"><h3>Fluxo de caixa</h3><p>Entradas, saídas e saldo do mês, da confeitaria e o seu pessoal.</p></div>
+    </div>
+    <p class="paragrafo">Tudo funciona no celular ou no computador, sem precisar de Excel. E você ainda recebe as aulas completas mostrando como usar cada recurso, passo a passo.</p>
+  </div>
+</section>
+
+<!-- AMANDA -->
+<section class="sec">
+  <div class="wrap amanda">
+    <img src="assets/amanda-bio.jpg" alt="Amanda Simão, especialista em confeitaria">
+    <div class="txt">
+      <h2 class="serif h2" style="color:var(--rosa)">Prazer, Amanda Simão</h2>
+      <p class="paragrafo">Vivo de confeitaria há 9 anos e, nos últimos 5, ensino confeiteiras a transformar a produção em negócio lucrativo. Já produzi mais de 5 mil bolos e formei mais de 20 mil alunas.</p>
+      <p class="paragrafo">Desenvolvi soluções que hoje fazem parte da rotina de milhares de profissionais: o Guindaste para Bolos (patenteado e distribuído pela BlueStar), o LaLu Hub, a Planilha 5.0 e a LaLu Academy.</p>
+      <div class="stats">
+        <div class="stat"><div class="n">9 anos</div><div class="l">vivendo de confeitaria</div></div>
+        <div class="stat"><div class="n">+20 mil</div><div class="l">alunas formadas</div></div>
+        <div class="stat"><div class="n">+5 mil</div><div class="l">bolos produzidos</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="sec depo-sec">
+  <div class="wrap">
+    <h2 class="serif h2">O que as alunas estão falando</h2>
+    <div class="depos">
+      <!-- TROCAR PELOS DEPOIMENTOS REAIS -->
+      <div class="depo">
+        <div class="depo-topo"><span class="avatar">J</span><span class="nome">Juliana</span></div>
+        <div class="chat">
+          <span class="data">12/03/2026</span>
+          <div class="balao"><p>Quase que eu não comprava, achei que precisava de computador.</p><div class="hora">15:07</div></div>
+          <div class="balao"><p>Quando vi que dava pra usar no celular comprei na hora. Precifiquei todos os meus bolos no mesmo dia.</p><div class="hora">15:09</div></div>
+        </div>
+      </div>
+      <div class="depo">
+        <div class="depo-topo"><span class="avatar">T</span><span class="nome">Thamires</span></div>
+        <div class="chat">
+          <span class="data">27/02/2026</span>
+          <div class="balao"><p>Demorei pra decidir, já tinha comprado outras que diziam ser fáceis e na prática não eram.</p><div class="hora">09:41</div></div>
+          <div class="balao"><p>Essa é simples de verdade, e ainda tem as aulas de precificação e fluxo de caixa.</p><div class="hora">09:42</div></div>
+        </div>
+      </div>
+      <div class="depo">
+        <div class="depo-topo"><span class="avatar">R</span><span class="nome">Rosana</span></div>
+        <div class="chat">
+          <span class="data">04/03/2026</span>
+          <div class="balao"><p>Trabalho com salgados e vivia perdida no valor das porções.</p><div class="hora">20:15</div></div>
+          <div class="balao"><p>Agora sei o custo de cada uma e o financeiro da minha empresa mudou. Obrigada!</p><div class="hora">20:16</div></div>
+        </div>
+      </div>
+    </div>
+    <p class="nota">Textos de exemplo — substituir pelos depoimentos reais antes de publicar, e apagar esta linha.</p>
+  </div>
+</section>
+
+<!-- OFERTA -->
+<section class="oferta" id="oferta">
+  <div class="wrap">
+    <div class="oferta-card">
+      <h2 class="serif h3" style="color:var(--rosa)">Aplicativo de precificação e finanças</h2>
+      <div class="lista">
+        <span class="check"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#17704C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Ferramenta de precificação para qualquer produto alimentício</span>
+        <span class="check"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#17704C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Fluxo de caixa e finanças pessoais</span>
+        <span class="check"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#17704C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Vídeo aulas de como usar, passo a passo</span>
+        <span class="check"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#17704C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Grupo aberto 24h para tirar dúvidas</span>
+      </div>
+      <div class="hr"></div>
+      <p class="micro">Uma única encomenda mal precificada custa mais caro que isso aqui</p>
+      <div class="preco"><span class="sm">8x de R$ 5,47 ou</span><span class="big">R$ 37,00</span><span class="sm">à vista</span></div>
+      <a class="btn btn-full" href="COLOQUE_AQUI_O_LINK_DO_CHECKOUT">QUERO TER ACESSO</a>
+      <p class="micro">Não precisa de computador · Não precisa saber porcentagem · Serve para doces, salgados e marmitas</p>
+    </div>
+  </div>
+</section>
+
+<!-- GARANTIA -->
+<section class="wrap garantia">
+  <span class="selo"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#B0304C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></span>
+  <div>
+    <h3 class="serif h3">Teste com os seus produtos por 7 dias</h3>
+    <p class="paragrafo" style="margin-top:6px">Precifique três produtos que você já vende e compare com o que cobra hoje. Se não fizer sentido, você pede o reembolso dentro dos 7 dias.</p>
+  </div>
+</section>
+
+<!-- DOR + CTA FINAL -->
+<section class="sec dor">
+  <div class="wrap">
+    <h2 class="serif h2">Se você já disse alguma dessas frases, o preço está te comendo por dentro</h2>
+    <p class="micro" style="margin-top:8px">Nenhuma delas é falta de talento. Todas são falta de conta.</p>
+    <div class="dor-grid">
+      <div class="frase">“Cobrei R$ 40 no bolo porque a menina aqui do bairro cobra R$ 40.”</div>
+      <div class="frase">“Recebi o dinheiro da encomenda e ele já foi todo pra repor o estoque.”</div>
+      <div class="frase">“O leite condensado subiu de novo e eu nem lembrei de refazer o preço.”</div>
+      <div class="frase">“Baixei uma planilha de Excel, abri uma vez, nunca mais consegui mexer.”</div>
+      <div class="frase">“Não faço ideia de quanto daquele preço é o meu salário.”</div>
+      <div class="frase">“Trabalho todo fim de semana e a conta nunca fecha.”</div>
+    </div>
+    <div class="fecho">
+      <p>Trabalhar mais não resolve nenhuma delas.<br><strong>Só a conta certa resolve.</strong></p>
+      <a class="btn" href="#oferta">QUERO TER ACESSO</a>
+    </div>
+  </div>
+</section>
+
+<div class="selos">
+  <div class="wrap">
+    <span>Acesso imediato</span><span>Suporte em até 24h</span><span>Compra segura</span><span>Garantia de 7 dias</span>
+  </div>
+</div>
+
+<footer class="wrap rodape">
+  Amanda Simão · [CNPJ / RAZÃO SOCIAL] · [E-MAIL DE SUPORTE] · Política de privacidade · Termos de uso
+</footer>
+
+</body>
+</html>
